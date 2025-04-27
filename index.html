@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Playlist Loop</title>
+</head>
+<body>
+
+<audio id="audioPlayer" controls autoplay></audio>
+
+<script>
+  const playlist = [
+    { name: "Surah Al-Buruj", src: "downloaded_mp3s/085.mp3" },
+    { name: "Surah At-Tariq", src: "downloaded_mp3s/086.mp3" },
+    { name: "Surah Al-A'la", src: "downloaded_mp3s/087.mp3" },
+    { name: "Surah Al-Ghashiyah", src: "downloaded_mp3s/088.mp3" },
+    { name: "Surah Al-Fajr", src: "downloaded_mp3s/089.mp3" },
+    { name: "Surah Al-Balad", src: "downloaded_mp3s/090.mp3" },
+    { name: "Surah Ash-Shams", src: "downloaded_mp3s/091.mp3" },
+    { name: "Surah Al-Lail", src: "downloaded_mp3s/092.mp3" },
+    { name: "Surah Ad-Duha", src: "downloaded_mp3s/093.mp3" },
+    { name: "Surah Ash-Sharh", src: "downloaded_mp3s/094.mp3" },
+    { name: "Surah At-Tin", src: "downloaded_mp3s/095.mp3" },
+    { name: "Surah Al-Alaq", src: "downloaded_mp3s/096.mp3" },
+    { name: "Surah Al-Qadr", src: "downloaded_mp3s/097.mp3" },
+    { name: "Surah Al-Bayyina", src: "downloaded_mp3s/098.mp3" },
+    { name: "Surah Az-Zalzalah", src: "downloaded_mp3s/099.mp3" },
+    { name: "Surah Al-Adiyat", src: "downloaded_mp3s/100.mp3" },
+    { name: "Surah Al-Qari'ah", src: "downloaded_mp3s/101.mp3" },
+    { name: "Surah At-Takathur", src: "downloaded_mp3s/102.mp3" },
+    { name: "Surah Al-Asr", src: "downloaded_mp3s/103.mp3" },
+    { name: "Surah Al-Humazah", src: "downloaded_mp3s/104.mp3" },
+    { name: "Surah Al-Fil", src: "downloaded_mp3s/105.mp3" },
+    { name: "Surah Quraysh", src: "downloaded_mp3s/106.mp3" },
+    { name: "Surah Al-Ma'un", src: "downloaded_mp3s/107.mp3" },
+    { name: "Surah Al-Kawthar", src: "downloaded_mp3s/108.mp3" },
+    { name: "Surah Al-Kafirun", src: "downloaded_mp3s/109.mp3" },
+    { name: "Surah An-Nasr", src: "downloaded_mp3s/110.mp3" },
+    { name: "Surah Al-Masad", src: "downloaded_mp3s/111.mp3" },
+    { name: "Surah Al-Ikhlas", src: "downloaded_mp3s/112.mp3" },
+    { name: "Surah Al-Falaq", src: "downloaded_mp3s/113.mp3" },
+    { name: "Surah An-Nas", src: "downloaded_mp3s/114.mp3" }
+  ];
+
+  let currentTrack = 0;
+  const audio = document.getElementById('audioPlayer');
+
+  function playTrack(index) {
+    audio.src = playlist[index].src;
+    audio.play();
+  }
+
+  audio.addEventListener('ended', function() {
+    currentTrack++;
+    if (currentTrack >= playlist.length) {
+      currentTrack = 0; // Loop back to the first track
+    }
+    playTrack(currentTrack);
+  });
+
+  // Start the first track
+  playTrack(currentTrack);
+</script>
+
+</body>
+</html>
