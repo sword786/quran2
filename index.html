@@ -2,64 +2,369 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Playlist Loop</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quranic Recitations</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: #f8f9fa;
+  min-height: 100vh;
+  overflow-x: hidden; /* No side scrolling */
+  overflow-y: auto;   /* Allow vertical scroll */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: #4CAF50;
+}
+
+
+    h1 {
+      color: #2e7d32;
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .playlist {
+      margin: 20px 0;
+    }
+
+    .playlist button {
+      margin: 5px;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .playlist button:hover {
+      background-color: #45a049;
+    }
+
+    .download-btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #2196F3;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .download-btn:hover {
+      background-color: #0b7dda;
+    }
+
+    /* Moving colorful shapes */
+    .shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.5;
+      animation: moveShapes 10s infinite ease-in-out;
+    }
+
+    .shape:nth-child(1) {
+      width: 200px;
+      height: 200px;
+      background: linear-gradient(45deg, #ff4d4d, #ff9900);
+      top: 10%;
+      left: 10%;
+      animation-duration: 12s;
+    }
+
+    .shape:nth-child(2) {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(45deg, #33cc33, #66ccff);
+      top: 30%;
+      left: 50%;
+      animation-duration: 15s;
+    }
+
+    .shape:nth-child(3) {
+      width: 250px;
+      height: 250px;
+      background: linear-gradient(45deg, #ff66cc, #ffcc00);
+      top: 60%;
+      left: 80%;
+      animation-duration: 18s;
+    }
+
+    @keyframes moveShapes {
+      0% {
+        transform: translate(0, 0);
+      }
+      25% {
+        transform: translate(100px, 100px);
+      }
+      50% {
+        transform: translate(200px, -50px);
+      }
+      75% {
+        transform: translate(-150px, 200px);
+      }
+      100% {
+        transform: translate(0, 0);
+      }
+    }
+
+  </style>
 </head>
 <body>
 
-<audio id="audioPlayer" controls autoplay></audio>
+  <h1>Quranic Recitations</h1>
 
-<script>
-  const playlist = [
-    { name: "Surah Al-Buruj", src: "downloaded_mp3s/085.mp3" },
-    { name: "Surah At-Tariq", src: "downloaded_mp3s/086.mp3" },
-    { name: "Surah Al-A'la", src: "downloaded_mp3s/087.mp3" },
-    { name: "Surah Al-Ghashiyah", src: "downloaded_mp3s/088.mp3" },
-    { name: "Surah Al-Fajr", src: "downloaded_mp3s/089.mp3" },
-    { name: "Surah Al-Balad", src: "downloaded_mp3s/090.mp3" },
-    { name: "Surah Ash-Shams", src: "downloaded_mp3s/091.mp3" },
-    { name: "Surah Al-Lail", src: "downloaded_mp3s/092.mp3" },
-    { name: "Surah Ad-Duha", src: "downloaded_mp3s/093.mp3" },
-    { name: "Surah Ash-Sharh", src: "downloaded_mp3s/094.mp3" },
-    { name: "Surah At-Tin", src: "downloaded_mp3s/095.mp3" },
-    { name: "Surah Al-Alaq", src: "downloaded_mp3s/096.mp3" },
-    { name: "Surah Al-Qadr", src: "downloaded_mp3s/097.mp3" },
-    { name: "Surah Al-Bayyina", src: "downloaded_mp3s/098.mp3" },
-    { name: "Surah Az-Zalzalah", src: "downloaded_mp3s/099.mp3" },
-    { name: "Surah Al-Adiyat", src: "downloaded_mp3s/100.mp3" },
-    { name: "Surah Al-Qari'ah", src: "downloaded_mp3s/101.mp3" },
-    { name: "Surah At-Takathur", src: "downloaded_mp3s/102.mp3" },
-    { name: "Surah Al-Asr", src: "downloaded_mp3s/103.mp3" },
-    { name: "Surah Al-Humazah", src: "downloaded_mp3s/104.mp3" },
-    { name: "Surah Al-Fil", src: "downloaded_mp3s/105.mp3" },
-    { name: "Surah Quraysh", src: "downloaded_mp3s/106.mp3" },
-    { name: "Surah Al-Ma'un", src: "downloaded_mp3s/107.mp3" },
-    { name: "Surah Al-Kawthar", src: "downloaded_mp3s/108.mp3" },
-    { name: "Surah Al-Kafirun", src: "downloaded_mp3s/109.mp3" },
-    { name: "Surah An-Nasr", src: "downloaded_mp3s/110.mp3" },
-    { name: "Surah Al-Masad", src: "downloaded_mp3s/111.mp3" },
-    { name: "Surah Al-Ikhlas", src: "downloaded_mp3s/112.mp3" },
-    { name: "Surah Al-Falaq", src: "downloaded_mp3s/113.mp3" },
-    { name: "Surah An-Nas", src: "downloaded_mp3s/114.mp3" }
-  ];
+  <audio id="audioPlayer" controls autoplay></audio>
 
-  let currentTrack = 0;
-  const audio = document.getElementById('audioPlayer');
+<div class="playlist">
+    <h2>Select a Surah to Listen</h2>
+    <button onclick="changeSurah(0)">Surah Al-Fatiha</button>
+    <button onclick="changeSurah(1)">Surah Al-Baqarah</button>
+    <button onclick="changeSurah(2)">Surah Al-Hajj</button>
+    <button onclick="changeSurah(3)">Surah Al-Mu'minun</button>
+    <button onclick="changeSurah(4)">Surah Al-Ankabut</button>
+    <button onclick="changeSurah(5)">Surah Ar-Rum</button>
+    <button onclick="changeSurah(6)">Surah Luqman</button>
+    <button onclick="changeSurah(7)">Surah As-Sajda</button>
+    <button onclick="changeSurah(8)">Surah Ya-Sin</button>
+    <button onclick="changeSurah(9)">Surah Muhammad</button>
+    <button onclick="changeSurah(10)">Surah Adh-Dhariyat</button>
+    <button onclick="changeSurah(11)">Surah At-Tur</button>
+    <button onclick="changeSurah(12)">Surah Al-Qamar</button>
+    <button onclick="changeSurah(13)">Surah Al-Hadid</button>
+    <button onclick="changeSurah(14)">Surah Al-Mujadila</button>
+    <button onclick="changeSurah(15)">Surah Al-Hashr</button>
+    <button onclick="changeSurah(16)">Surah Al-Mumtahina</button>
+    <button onclick="changeSurah(17)">Surah As-Saff</button>
+    <button onclick="changeSurah(18)">Surah Al-Jumu'ah</button>
+    <button onclick="changeSurah(19)">Surah Al-Munafiqun</button>
+    <button onclick="changeSurah(20)">Surah At-Taghabun</button>
+    <button onclick="changeSurah(21)">Surah At-Talaq</button>
+    <button onclick="changeSurah(22)">Surah At-Tahrim</button>
+    <button onclick="changeSurah(23)">Surah Al-Mulk</button>
+    <button onclick="changeSurah(24)">Surah Al-Qalam</button>
+    <button onclick="changeSurah(25)">Surah Al-Haaqqa</button>
+    <button onclick="changeSurah(26)">Surah Al-Ma'arij</button>
+    <button onclick="changeSurah(27)">Surah Nuh</button>
+    <button onclick="changeSurah(28)">Surah Al-Infitar</button>
+    <button onclick="changeSurah(29)">Surah Al-Buruj</button>
+    <button onclick="changeSurah(30)">Surah Al-A'la</button>
+    <button onclick="changeSurah(31)">Surah Al-Lail</button>
+    <button onclick="changeSurah(32)">Surah Ad-Duha</button>
+    <button onclick="changeSurah(33)">Surah Ash-Sharh</button>
+    <button onclick="changeSurah(34)">Surah At-Tin</button>
+    <button onclick="changeSurah(35)">Surah Al-Alaq</button>
+    <button onclick="changeSurah(36)">Surah Al-Bayyina</button>
+    <button onclick="changeSurah(37)">Surah Az-Zalzalah</button>
+    <button onclick="changeSurah(38)">Surah Al-Adiyat</button>
+    <button onclick="changeSurah(39)">Surah Al-Qariah</button>
+    <button onclick="changeSurah(40)">Surah At-Takathur</button>
+    <button onclick="changeSurah(41)">Surah Al-Asr</button>
+    <button onclick="changeSurah(42)">Surah Al-Humazah</button>
+    <button onclick="changeSurah(43)">Surah Al-Fil</button>
+    <button onclick="changeSurah(44)">Surah Quraish</button>
+    <button onclick="changeSurah(45)">Surah Al-Ma'un</button>
+    <button onclick="changeSurah(46)">Surah Al-Kawthar</button>
+    <button onclick="changeSurah(47)">Surah Al-Kafirun</button>
+    <button onclick="changeSurah(48)">Surah An-Nasr</button>
+    <button onclick="changeSurah(49)">Surah Al-Masad</button>
+    <button onclick="changeSurah(50)">Surah Al-Ikhlas</button>
+    <button onclick="changeSurah(51)">Surah Al-Falaq</button>
+    <button onclick="changeSurah(52)">Surah An-Nas</button>
+</div>
 
-  function playTrack(index) {
-    audio.src = playlist[index].src;
-    audio.play();
-  }
 
-  audio.addEventListener('ended', function() {
-    currentTrack++;
-    if (currentTrack >= playlist.length) {
-      currentTrack = 0; // Loop back to the first track
-    }
-    playTrack(currentTrack);
-  });
+  <div class="download">
+    <h2>Download Surah</h2>
+    <a href="Ra'd Al-Kurdi/001.mp3" class="download-btn" download>Download Surah Al-Fatiha</a>
+    <a href="Ra'd Al-Kurdi/002.mp3" class="download-btn" download>Download Surah Al-Baqarah</a>
+    <a href="Ra'd Al-Kurdi/022.mp3" class="download-btn" download>Download Surah Al-Hajj</a>
+    <a href="Ra'd Al-Kurdi/023.mp3" class="download-btn" download>Download Surah Al-Mu'minun</a>
+    <a href="Ra'd Al-Kurdi/029.mp3" class="download-btn" download>Download Surah Al-Ankabut</a>
+    <a href="Ra'd Al-Kurdi/030.mp3" class="download-btn" download>Download Surah Ar-Rum</a>
+    <a href="Ra'd Al-Kurdi/031.mp3" class="download-btn" download>Download Surah Luqman</a>
+    <a href="Ra'd Al-Kurdi/032.mp3" class="download-btn" download>Download Surah As-Sajda</a>
+    <a href="Ra'd Al-Kurdi/036.mp3" class="download-btn" download>Download Surah Ya-Sin</a>
+    <a href="Ra'd Al-Kurdi/047.mp3" class="download-btn" download>Download Surah Muhammad</a>
+    <a href="Ra'd Al-Kurdi/051.mp3" class="download-btn" download>Download Surah Adh-Dhariyat</a>
+    <a href="Ra'd Al-Kurdi/052.mp3" class="download-btn" download>Download Surah At-Tur</a>
+    <a href="Ra'd Al-Kurdi/054.mp3" class="download-btn" download>Download Surah Al-Qamar</a>
+    <a href="Ra'd Al-Kurdi/057.mp3" class="download-btn" download>Download Surah Al-Hadid</a>
+    <a href="Ra'd Al-Kurdi/058.mp3" class="download-btn" download>Download Surah Al-Mujadila</a>
+    <a href="Ra'd Al-Kurdi/059.mp3" class="download-btn" download>Download Surah Al-Hashr</a>
+    <a href="Ra'd Al-Kurdi/060.mp3" class="download-btn" download>Download Surah Al-Mumtahina</a>
+    <a href="Ra'd Al-Kurdi/061.mp3" class="download-btn" download>Download Surah As-Saff</a>
+    <a href="Ra'd Al-Kurdi/062.mp3" class="download-btn" download>Download Surah Al-Jumu'ah</a>
+    <a href="Ra'd Al-Kurdi/063.mp3" class="download-btn" download>Download Surah Al-Munafiqun</a>
+    <a href="Ra'd Al-Kurdi/064.mp3" class="download-btn" download>Download Surah At-Taghabun</a>
+    <a href="Ra'd Al-Kurdi/065.mp3" class="download-btn" download>Download Surah At-Talaq</a>
+    <a href="Ra'd Al-Kurdi/066.mp3" class="download-btn" download>Download Surah At-Tahrim</a>
+    <a href="Ra'd Al-Kurdi/067.mp3" class="download-btn" download>Download Surah Al-Mulk</a>
+    <a href="Ra'd Al-Kurdi/068.mp3" class="download-btn" download>Download Surah Al-Qalam</a>
+    <a href="Ra'd Al-Kurdi/069.mp3" class="download-btn" download>Download Surah Al-Haaqqa</a>
+    <a href="Ra'd Al-Kurdi/070.mp3" class="download-btn" download>Download Surah Al-Ma'arij</a>
+    <a href="Ra'd Al-Kurdi/071.mp3" class="download-btn" download>Download Surah Nuh</a>
+    <a href="Ra'd Al-Kurdi/082.mp3" class="download-btn" download>Download Surah Al-Infitar</a>
+    <a href="Ra'd Al-Kurdi/085.mp3" class="download-btn" download>Download Surah Al-Buruj</a>
+    <a href="Ra'd Al-Kurdi/087.mp3" class="download-btn" download>Download Surah Al-A'la</a>
+    <a href="Ra'd Al-Kurdi/092.mp3" class="download-btn" download>Download Surah Al-Lail</a>
+    <a href="Ra'd Al-Kurdi/093.mp3" class="download-btn" download>Download Surah Ad-Duha</a>
+    <a href="Ra'd Al-Kurdi/094.mp3" class="download-btn" download>Download Surah Ash-Sharh</a>
+    <a href="Ra'd Al-Kurdi/095.mp3" class="download-btn" download>Download Surah At-Tin</a>
+    <a href="Ra'd Al-Kurdi/096.mp3" class="download-btn" download>Download Surah Al-Alaq</a>
+    <a href="Ra'd Al-Kurdi/098.mp3" class="download-btn" download>Download Surah Al-Bayyina</a>
+    <a href="Ra'd Al-Kurdi/099.mp3" class="download-btn" download>Download Surah Az-Zalzalah</a>
+    <a href="Ra'd Al-Kurdi/100.mp3" class="download-btn" download>Download Surah Al-Adiyat</a>
+    <a href="Ra'd Al-Kurdi/101.mp3" class="download-btn" download>Download Surah Al-Qariah</a>
+    <a href="Ra'd Al-Kurdi/102.mp3" class="download-btn" download>Download Surah At-Takathur</a>
+    <a href="Ra'd Al-Kurdi/103.mp3" class="download-btn" download>Download Surah Al-Asr</a>
+    <a href="Ra'd Al-Kurdi/104.mp3" class="download-btn" download>Download Surah Al-Humazah</a>
+    <a href="Ra'd Al-Kurdi/105.mp3" class="download-btn" download>Download Surah Al-Fil</a>
+    <a href="Ra'd Al-Kurdi/106.mp3" class="download-btn" download>Download Surah Quraish</a>
+    <a href="Ra'd Al-Kurdi/107.mp3" class="download-btn" download>Download Surah Al-Ma'un</a>
+    <a href="Ra'd Al-Kurdi/108.mp3" class="download-btn" download>Download Surah Al-Kawthar</a>
+    <a href="Ra'd Al-Kurdi/109.mp3" class="download-btn" download>Download Surah Al-Kafirun</a>
+    <a href="Ra'd Al-Kurdi/110.mp3" class="download-btn" download>Download Surah An-Nasr</a>
+    <a href="Ra'd Al-Kurdi/111.mp3" class="download-btn" download>Download Surah Al-Masad</a>
+    <a href="Ra'd Al-Kurdi/112.mp3" class="download-btn" download>Download Surah Al-Ikhlas</a>
+    <a href="Ra'd Al-Kurdi/113.mp3" class="download-btn" download>Download Surah Al-Falaq</a>
+    <a href="Ra'd Al-Kurdi/114.mp3" class="download-btn" download>Download Surah An-Nas</a>
+  </div>
+  
+  <div class="booster">
+        <label for="volumeBoost">🔊 Boost Volume:</label>
+        <input type="range" id="volumeBoost" min="1" max="3" value="1" step="0.1">
+        <span id="boostValue">1x</span>
+  </div>
+  
+  <script>
+    const playlist = [
+      { name: "001", src: "Ra'd Al-Kurdi/001.mp3" },
+      { name: "002", src: "Ra'd Al-Kurdi/002.mp3" },
+      { name: "022", src: "Ra'd Al-Kurdi/022.mp3" },
+      { name: "023", src: "Ra'd Al-Kurdi/023.mp3" },
+      { name: "029", src: "Ra'd Al-Kurdi/029.mp3" },
+      { name: "030", src: "Ra'd Al-Kurdi/030.mp3" },
+      { name: "031", src: "Ra'd Al-Kurdi/031.mp3" },
+      { name: "032", src: "Ra'd Al-Kurdi/032.mp3" },
+      { name: "036", src: "Ra'd Al-Kurdi/036.mp3" },
+      { name: "047", src: "Ra'd Al-Kurdi/047.mp3" },
+      { name: "051", src: "Ra'd Al-Kurdi/051.mp3" },
+      { name: "052", src: "Ra'd Al-Kurdi/052.mp3" },
+      { name: "054", src: "Ra'd Al-Kurdi/054.mp3" },
+      { name: "057", src: "Ra'd Al-Kurdi/057.mp3" },
+      { name: "058", src: "Ra'd Al-Kurdi/058.mp3" },
+      { name: "059", src: "Ra'd Al-Kurdi/059.mp3" },
+      { name: "060", src: "Ra'd Al-Kurdi/060.mp3" },
+      { name: "061", src: "Ra'd Al-Kurdi/061.mp3" },
+      { name: "062", src: "Ra'd Al-Kurdi/062.mp3" },
+      { name: "063", src: "Ra'd Al-Kurdi/063.mp3" },
+      { name: "064", src: "Ra'd Al-Kurdi/064.mp3" },
+      { name: "065", src: "Ra'd Al-Kurdi/065.mp3" },
+      { name: "066", src: "Ra'd Al-Kurdi/066.mp3" },
+      { name: "067", src: "Ra'd Al-Kurdi/067.mp3" },
+      { name: "068", src: "Ra'd Al-Kurdi/068.mp3" },
+      { name: "069", src: "Ra'd Al-Kurdi/069.mp3" },
+      { name: "070", src: "Ra'd Al-Kurdi/070.mp3" },
+      { name: "071", src: "Ra'd Al-Kurdi/071.mp3" },
+      { name: "082", src: "Ra'd Al-Kurdi/082.mp3" },
+      { name: "085", src: "Ra'd Al-Kurdi/085.mp3" },
+      { name: "087", src: "Ra'd Al-Kurdi/087.mp3" },
+      { name: "092", src: "Ra'd Al-Kurdi/092.mp3" },
+      { name: "093", src: "Ra'd Al-Kurdi/093.mp3" },
+      { name: "094", src: "Ra'd Al-Kurdi/094.mp3" },
+      { name: "095", src: "Ra'd Al-Kurdi/095.mp3" },
+      { name: "096", src: "Ra'd Al-Kurdi/096.mp3" },
+      { name: "098", src: "Ra'd Al-Kurdi/098.mp3" },
+      { name: "099", src: "Ra'd Al-Kurdi/099.mp3" },
+      { name: "100", src: "Ra'd Al-Kurdi/100.mp3" },
+      { name: "101", src: "Ra'd Al-Kurdi/101.mp3" },
+      { name: "102", src: "Ra'd Al-Kurdi/102.mp3" },
+      { name: "103", src: "Ra'd Al-Kurdi/103.mp3" },
+      { name: "104", src: "Ra'd Al-Kurdi/104.mp3" },
+      { name: "105", src: "Ra'd Al-Kurdi/105.mp3" },
+      { name: "106", src: "Ra'd Al-Kurdi/106.mp3" },
+      { name: "107", src: "Ra'd Al-Kurdi/107.mp3" },
+      { name: "108", src: "Ra'd Al-Kurdi/108.mp3" },
+      { name: "109", src: "Ra'd Al-Kurdi/109.mp3" },
+      { name: "110", src: "Ra'd Al-Kurdi/110.mp3" },
+      { name: "111", src: "Ra'd Al-Kurdi/111.mp3" },
+      { name: "112", src: "Ra'd Al-Kurdi/112.mp3" },
+      { name: "113", src: "Ra'd Al-Kurdi/113.mp3" },
+      { name: "114", src: "Ra'd Al-Kurdi/114.mp3" },
+      { name: "59136e042760a", src: "Ra'd Al-Kurdi/59136e042760a.mp3" },
+      { name: "5928dcbf591ce", src: "Ra'd Al-Kurdi/5928dcbf591ce.mp3" },
+      { name: "5928f074e547e", src: "Ra'd Al-Kurdi/5928f074e547e.mp3" },
+      { name: "5928f2726e917", src: "Ra'd Al-Kurdi/5928f2726e917.mp3" },
+      { name: "5928f7cc21272", src: "Ra'd Al-Kurdi/5928f7cc21272.mp3" },
+      { name: "5928f971cdaf7", src: "Ra'd Al-Kurdi/5928f971cdaf7.mp3" },
+      { name: "5928fb36479bc", src: "Ra'd Al-Kurdi/5928fb36479bc.mp3" },
+      { name: "5928fb893ed7a", src: "Ra'd Al-Kurdi/5928fb893ed7a.mp3" },
+      { name: "5928fc7830201", src: "Ra'd Al-Kurdi/5928fc7830201.mp3" },
+      { name: "5928fe6d6c2c0", src: "Ra'd Al-Kurdi/5928fe6d6c2c0.mp3" },
+      { name: "5928ffac0a5b0", src: "Ra'd Al-Kurdi/5928ffac0a5b0.mp3" },
+      { name: "5928ffd0b6387", src: "Ra'd Al-Kurdi/5928ffd0b6387.mp3" },
+      { name: "5a7c9f16c2ed9", src: "Ra'd Al-Kurdi/5a7c9f16c2ed9.mp3" },
+      { name: "5a7ca016bc2ec", src: "Ra'd Al-Kurdi/5a7ca016bc2ec.mp3" },
+      { name: "5a89f563bbd1d", src: "Ra'd Al-Kurdi/5a89f563bbd1d.mp3" },
+      { name: "5b1c91b69dd1e", src: "Ra'd Al-Kurdi/5b1c91b69dd1e.mp3" },
+      { name: "5b1c974054bbb", src: "Ra'd Al-Kurdi/5b1c974054bbb.mp3" }
+    ];
 
-  // Start the first track
+let currentTrack = 0;
+const audio = document.getElementById('audioPlayer');
+
+function playTrack(index) {
+  audio.src = playlist[index].src;
+  audio.play();
+}
+
+function changeSurah(index) {
+  currentTrack = index;
   playTrack(currentTrack);
+}
+    
+audio.addEventListener('ended', function() {
+  currentTrack++;
+  if (currentTrack >= playlist.length) {
+    currentTrack = 0; // Loop back
+  }
+  playTrack(currentTrack);
+});
+
+// Start first track
+playTrack(currentTrack);
+
+// Volume booster
+const volumeBoost = document.getElementById("volumeBoost");
+const boostValue = document.getElementById("boostValue");
+const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+const source = audioContext.createMediaElementSource(audio);
+const gainNode = audioContext.createGain();
+
+source.connect(gainNode);
+gainNode.connect(audioContext.destination);
+
+volumeBoost.addEventListener("input", () => {
+  const gain = parseFloat(volumeBoost.value);
+  gainNode.gain.value = gain;
+  boostValue.textContent = gain.toFixed(1) + "x";
+});
+
+// Start audio context on user interaction
+document.body.addEventListener("click", () => {
+  if (audioContext.state === 'suspended') {
+    audioContext.resume();
+  }
+});  
 </script>
 
 </body>
